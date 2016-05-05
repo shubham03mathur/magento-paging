@@ -1,7 +1,10 @@
 <?php  
-$arr=$block->getTestModel()->getData();
+$arr=$block->getTestModel();
 ?>
 
+<?php echo $block->getChildHtml('info');?>
+
+<?php if ($arr && count($arr)): ?>
 <div class="table-wrapper orders-history">
 <form class="form"
       method="post"
@@ -19,32 +22,28 @@ $arr=$block->getTestModel()->getData();
         </tr>
     </thead>
     <tbody>
-<?php
-foreach($arr as $data)
-{
-     print_r("<tr><td>".$data['excellence_table_test_id']."</td>");
-     print_r("<td>".$data['title']."</td>");
-     print_r("<td>".$data['email']."</td>");
-     print_r("<td>".$data['creation_time']."</td>");
-     print_r("<td>".$data['update_time']."</td>");
-     if($data['is_active']==1){
+<?php foreach($arr as $data): ?>
+     <tr>
+     <td><?php echo $data->getExcellenceTableTestId() ?></td>
+     <td><?php echo $data->getTitle() ?></td>
+     <td><?php echo $data->getEmail() ?></td>
+     <td><?php echo $data->getCreationTime()?></td>
+     <td><?php echo $data->getUpdateTime()?></td>
+    <?php 
+     $check= echo $data->getIsActive();
+     if($check==1){
         $option="Enabled";
      }
      else{
         $option="Disabled";
      }
-     print_r("<td>".$option."</td>");
-     print_r("<td>")?><a href="<?php echo $block->getEditUrl($data['excellence_table_test_id']);?>"><?php echo __('Edit');?></a>
-     <?php
-     print_r("</td>");
-     ?>
-     <?php
-     print_r("<td>")?><a href="<?php echo $block->getDeleteUrl($data['excellence_table_test_id']); ?>"><?php echo __('Delete');?></a>
-     <?php
-     print_r("</tr>");
-
-}
-?>
+    ?>
+     <td><?php echo $option ?></td>
+     <td><a href="<?php echo $block->getEditUrl($data['excellence_table_test_id']);?>"><?php echo __('Edit');?></a></td>
+     <td><a href="<?php echo $block->getDeleteUrl($data['excellence_table_test_id']); ?>"><?php echo __('Delete');?></a></td>
+     
+    </tr>
+<?php endforeach; ?>
 </tbody>
 </table>
 <div class="actions-toolbar">
@@ -54,6 +53,12 @@ foreach($arr as $data)
 </form>
 
 </div>
+<?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+<?php endif ?>
+<?php else:?>
+    <div class="message info empty"><span><?php /* @escapeNotVerified */ echo __('You have placed no orders.'); ?></span></div>
+<?php endif?>    
 
 
 
