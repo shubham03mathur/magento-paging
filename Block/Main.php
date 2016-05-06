@@ -25,7 +25,7 @@ class Main extends \Magento\Framework\View\Element\Template
                  'Magento\Theme\Block\Html\Pager',
                  'excellence.test.record.pager'
             );
-            $pager->setAvailableLimit(array(5=>5,10=>10,'all'=>'all'))->setShowAmounts(true)->setCollection($this->getCollection());
+            $pager->setAvailableLimit(array(5=>5,10=>10,'all'=>'all'))->setShowAmounts(false)->setCollection($this->getCollection());
             $this->getCollection()->load();
             $this->setChild('pager', $pager);
              
