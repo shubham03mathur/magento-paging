@@ -85,14 +85,9 @@ $arr=$block->getCollection();
 </div>
 <?php if ($block->getPagerHtml()): ?>
 <div class="order-products-toolbar toolbar bottom">
-    <?php echo $block->getPagerHtml('info'); ?>
+    <?php echo $block->getPagerHtml(); ?>
 </div>
 <?php endif ?>
 <?php else:?>
 <div class="message info empty"><span><?php echo __('No Records Found !!'); ?></span></div>
 <?php endif?> 
-<style>
-.limiter {
-     display: block !important; 
-}
-</style>
