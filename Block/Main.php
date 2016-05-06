@@ -12,23 +12,25 @@ class Main extends \Magento\Framework\View\Element\Template
         
         $this->_testFactory = $testFactory;
         parent::__construct($context, $data);
-        $test = $this->_testFactory->create()->getCollection()->setOrder('excellence_table_test_id','desc');
-        $this->setTestModel($test);
+        $Collection = $this->_testFactory->create()->getCollection()->setOrder('excellence_table_test_id','desc');
+        $this->setCollection($Collection );
     }
 
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
-        if($this->getTestModel())
+        if($this->getCollection())
         {    
             $pager = $this->getLayout()->createBlock(
                  'Magento\Theme\Block\Html\Pager',
-                 'sales.order.history.pager'
+                 'excellence.test.record.pager'
             );
-            $pager->setLimit(5)->setShowAmounts(false)->setTestModel($this->getTestModel());
+            $pager->setAvailableLimit(array(5=>5,10=>10,'all'=>'all'))->setShowAmounts(true)->setCollection($this->getCollection());
+            $this->getCollection()->load();
             $this->setChild('pager', $pager);
-            $this->getTestModel()->load();    
+             
         } 
+        $this->getCollection();
         return $this;  
 
     }
