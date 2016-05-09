@@ -36,19 +36,19 @@ $arr=$block->getCollection();
                 <?php foreach($arr as $data): ?>
                 <tr>
                     <td>
-                        <?php echo $data->getExcellenceTableTestId() ?>
+                        <?php echo $data['excellence_table_test_id'] ?>
                     </td>
                     <td>
-                        <?php echo $data->getTitle() ?>
+                        <?php echo $data['title'] ?>
                     </td>
                     <td>
-                        <?php echo $data->getEmail() ?>
+                        <?php echo $data['email'] ?>
                     </td>
                     <td>
-                        <?php echo $data->getCreationTime()?>
+                        <?php echo $data['creation_time']?>
                     </td>
                     <td>
-                        <?php echo $data->getUpdateTime()?>
+                        <?php echo $data['update_time']?>
                     </td>
                     <?php 
      if($data['is_active']==1){

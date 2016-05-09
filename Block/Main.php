@@ -12,14 +12,14 @@ class Main extends \Magento\Framework\View\Element\Template
         
         $this->_testFactory = $testFactory;
         parent::__construct($context, $data);
-        $Collection = $this->_testFactory->create()->getCollection()->setOrder('excellence_table_test_id','desc');
-        $this->setCollection($Collection );
+        $Collection = $this->_testFactory->create()->fetchData();
+        $this->setCollection($Collection);
     }
 
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
-        if($this->getCollection())
+       if($this->getCollection())
         {    
             $pager = $this->getLayout()->createBlock(
                  'Magento\Theme\Block\Html\Pager',

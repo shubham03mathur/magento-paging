@@ -6,5 +6,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     {
         $this->_init('Excellence\Table\Model\Test','Excellence\Table\Model\ResourceModel\Test');
     }
+
+    
 }
 ?>

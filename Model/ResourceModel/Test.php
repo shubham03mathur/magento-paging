@@ -1,11 +1,23 @@
 <?php
 namespace Excellence\Table\Model\ResourceModel;
+use \Magento\Framework\App\ResourceConnection;
 class Test extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
     protected function _construct()
     {
-        $this->_init('excellence_table_test','excellence_table_test_id');
+        $this->_init('excellence_user','excellence_table_test_id');
     }
+     public function fetchDataItem()
+    {
     
+        $table = $this->getMainTable();
+        $table2 = $this->getTable('excellence_user_profile');
+        $cond = $this->getConnection()->quoteInto('t1.excellence_table_test_id = t2.user_id','');
+        $where = $this->getConnection()->quoteInto('t2.user_id = t1.excellence_table_test_id','');
+        $select = $this->getConnection()->select()->from(array('t1'=>$table))->join(array('t2'=>$table2), $cond)->where($where);
+        $collection=$this->getConnection($select)->fetchAll($select);
+        return $collection;
+    }
+ 
 }
 ?>

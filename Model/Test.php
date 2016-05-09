@@ -1,12 +1,13 @@
 <?php
 namespace Excellence\Table\Model;
+use \Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 class Test extends \Magento\Framework\Model\AbstractModel implements TestInterface, \Magento\Framework\DataObject\IdentityInterface
 {
     const CACHE_TAG = 'excellence_table_test';
- 
+    protected $_objectManager;
     protected function _construct()
     {
-        $this->_init('Excellence\Table\Model\ResourceModel\Test');
+        $this->_init('Excellence\Table\Model\ResourceModel\Test','\Magento\Framework\App\ResourceConnection');
     }
  
     public function getIdentities()
@@ -39,5 +40,12 @@ class Test extends \Magento\Framework\Model\AbstractModel implements TestInterfa
         $model->setIsActive($data['IsActive']);
         return $model->save();
     }
+    public function fetchData()
+    {
+
+      $collectionData=$this->getResource()->fetchDataItem();
+      return $collectionData;
+    }
+
 }
 ?>
