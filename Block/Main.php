@@ -19,14 +19,14 @@ class Main extends \Magento\Framework\View\Element\Template
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
-       if($this->getCollection())
+        if($this->getCollection())
         {    
+
             $pager = $this->getLayout()->createBlock(
-                 'Magento\Theme\Block\Html\Pager',
-                 'excellence.test.record.pager'
+                'Magento\Theme\Block\Html\Pager',
+                'excellence.test.record.pager'
             );
             $pager->setAvailableLimit(array(5=>5,10=>10,'all'=>'all'))->setShowAmounts(false)->setCollection($this->getCollection());
-            $this->getCollection()->load();
             $this->setChild('pager', $pager);
              
         } 

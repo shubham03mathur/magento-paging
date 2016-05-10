@@ -6,13 +6,16 @@ class Add extends \Magento\Framework\App\Action\Action
     protected $resultPageFactory;
     protected $testFactory;
     protected $messageManager;
+    protected $testnewFactory;
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Excellence\Table\Model\TestFactory $testFactory,
+        \Excellence\Table\Model\Test1Factory $test1Factory,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Magento\Framework\Message\ManagerInterface $messageManager)
     {
         $this->_testFactory = $testFactory;
+        $this->_test1Factory = $test1Factory;
         $this->resultPageFactory = $resultPageFactory; 
         $this->resultRedirectFactory = $context->getResultRedirectFactory(); 
         $this->messageManager = $messageManager;     
@@ -22,13 +25,16 @@ class Add extends \Magento\Framework\App\Action\Action
     public function execute()
     {
     	$test = $this->_testFactory->create();
-        $post = $this->getRequest()->getPostValue();
+    	$test1 = $this->_test1Factory->create();
+      $post = $this->getRequest()->getPostValue();
         if(isset($post['data']['submit'])){
-           $test->saveData($post);
-           $this->messageManager->addSuccess( __('Data Saved Successfully!!') );
-           $resultRedirect = $this->resultRedirectFactory->create();
-           $resultRedirect->setPath('*/*/');
-             return $resultRedirect;
+          $id=$test->saveData($post); 
+          $status=$post['data']['IsActive'];
+          $test1->saveStatus($status,$id);
+          $this->messageManager->addSuccess( __('Data Saved Successfully!!') );
+          $resultRedirect = $this->resultRedirectFactory->create();
+          $resultRedirect->setPath('*/*/');
+          return $resultRedirect;
         }
         return $this->resultPageFactory->create();
     }   

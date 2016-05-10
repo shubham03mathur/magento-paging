@@ -44,15 +44,18 @@ $table = $installer->getConnection()->newTable(
             'Modification Time'
         );
 $installer->getConnection()->createTable($table);
-//END   table setup
-//$installer->endSetup();
 
 $table = $installer->getConnection()->newTable(
-            $installer->getTable('excellence_user_profile')
+            $installer->getTable('excellence_table_test1')
     )->addColumn('user_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
             null,
-            [ 'nullable' => false, ],
+            [  'identity' => true, 'nullable' => false, 'primary' => true, 'unsigned' => true,],
+            'Primary ID'
+        )->addColumn('excellence_table_test1_id',
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+            null,
+            [  'nullable' => false,],
             'User ID'
         )->addColumn(
            'is_active',
@@ -62,6 +65,10 @@ $table = $installer->getConnection()->newTable(
             'Is Active'
         );
         $installer->getConnection()->createTable($table);
-        $installer->endSetup();
+        
+//START table setup
+
+//END   table setup
+$installer->endSetup();
     }
 }
