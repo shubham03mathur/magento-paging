@@ -1,6 +1,7 @@
 <?php 
 $data = $block->getRowData();
-if($data['is_active']== 1)
+$data1 = $block->getStatusData();
+if($data1['is_active']== 1)
 {
     $op1_select="selected";
     $op2_select="";

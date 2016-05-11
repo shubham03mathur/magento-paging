@@ -11,7 +11,7 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
          
 //START table setup
 $table = $installer->getConnection()->newTable(
-            $installer->getTable('excellence_table_test')
+            $installer->getTable('excellence_user')
     )->addColumn(
             'excellence_table_test_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
@@ -42,14 +42,32 @@ $table = $installer->getConnection()->newTable(
             null,
             [ 'nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT_UPDATE, ],
             'Modification Time'
-        )->addColumn(
-            'is_active',
-            \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
-            null,
-            [ 'nullable' => false, 'default' => '1', ],
-            'Is Active'
         );
 $installer->getConnection()->createTable($table);
+
+$table = $installer->getConnection()->newTable(
+            $installer->getTable('excellence_table_test1')
+    )->addColumn('user_id',
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+            null,
+            [  'identity' => true, 'nullable' => false, 'primary' => true, 'unsigned' => true,],
+            'Primary ID'
+        )->addColumn('excellence_table_test1_id',
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+            null,
+            [  'nullable' => false,],
+            'User ID'
+        )->addColumn(
+           'is_active',
+           \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+            null,
+            [ 'nullable' => false,],
+            'Is Active'
+        );
+        $installer->getConnection()->createTable($table);
+        
+//START table setup
+
 //END   table setup
 $installer->endSetup();
     }
