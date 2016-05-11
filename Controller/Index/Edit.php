@@ -33,9 +33,8 @@ class Edit extends \Magento\Framework\App\Action\Action
             $this->messageManager->addSuccess( __('Data Edited Successfully!!') );
             $resultRedirect = $this->resultRedirectFactory->create();
             $resultRedirect->setPath('*/*/');
-             return $resultRedirect;
+            return $resultRedirect;
         }
-
         return $this->resultPageFactory->create(); 
     } 
 }

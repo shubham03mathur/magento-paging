@@ -8,11 +8,10 @@ class Main extends \Magento\Framework\View\Element\Template
         \Excellence\Table\Model\TestFactory $testFactory,
         array $data = []
     )
-    {
-        
+    { 
         $this->_testFactory = $testFactory;
         parent::__construct($context, $data);
-        $Collection = $this->_testFactory->create()->fetchData();
+        $Collection = $this->_testFactory->create()->getCollection($this->_testFactory->create()->fetchData())->setOrder('excellence_table_test_id','desc');
         $this->setCollection($Collection);
     }
 
@@ -21,20 +20,18 @@ class Main extends \Magento\Framework\View\Element\Template
         parent::_prepareLayout();
         if($this->getCollection())
         {    
-
             $pager = $this->getLayout()->createBlock(
                 'Magento\Theme\Block\Html\Pager',
                 'excellence.test.record.pager'
             );
             $pager->setAvailableLimit(array(5=>5,10=>10,'all'=>'all'))->setShowAmounts(false)->setCollection($this->getCollection());
-            $this->setChild('pager', $pager);
-             
+
+            $this->setChild('pager', $pager);    
         } 
         $this->getCollection();
         return $this;  
-
     }
-   public function getPagerHtml()
+    public function getPagerHtml()
     {
         return $this->getChildHtml('pager');
     }
@@ -46,7 +43,6 @@ class Main extends \Magento\Framework\View\Element\Template
     {
         return $this->_urlBuilder->getUrl("excellence/index/Add");
     }
-    
     public function getDeleteUrl($id)
     {
         return $this->_urlBuilder->getUrl("excellence/index/delete/", array('id' => $id));
@@ -55,6 +51,5 @@ class Main extends \Magento\Framework\View\Element\Template
     {
         return $this->_urlBuilder->getUrl("excellence/index/index/");
     }
-
 }
 ?>
