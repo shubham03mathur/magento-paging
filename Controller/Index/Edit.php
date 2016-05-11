@@ -27,6 +27,7 @@ class Edit extends \Magento\Framework\App\Action\Action
         $post = $this->getRequest()->getPost('data');
         $id   = $this->getRequest()->getParam('id');
         $status= $post['IsActive'];
+        print_r($status);
         if(isset($post['submit'])) {
             $test->saveEdit($post,$id);
             $test1->saveEditStatus($status,$id);

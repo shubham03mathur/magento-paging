@@ -5,19 +5,21 @@ class Main extends \Magento\Framework\View\Element\Template
     protected $_testFactory;
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Excellence\Table\Model\TestFactory $testFactory,
-        array $data = []
+        \Excellence\Table\Model\TestFactory $testFactory
+       // array $data = []
     )
     { 
         $this->_testFactory = $testFactory;
-        parent::__construct($context, $data);
-        $Collection = $this->_testFactory->create()->getCollection($this->_testFactory->create()->fetchData())->setOrder('excellence_table_test_id','desc');
+        parent::__construct($context);
+        $Collection = $this->_testFactory->create()->setCollection($this->_testFactory->create()->fetchData())->setOrder('excellence_table_test_id','desc');
         $this->setCollection($Collection);
     }
 
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
+        $test=$this->_testFactory->create();
+        
         if($this->getCollection())
         {    
             $pager = $this->getLayout()->createBlock(
@@ -25,7 +27,7 @@ class Main extends \Magento\Framework\View\Element\Template
                 'excellence.test.record.pager'
             );
             $pager->setAvailableLimit(array(5=>5,10=>10,'all'=>'all'))->setShowAmounts(false)->setCollection($this->getCollection());
-
+            
             $this->setChild('pager', $pager);    
         } 
         $this->getCollection();
